@@ -56,10 +56,10 @@ class LibraryHandler:
 
     def _get_month(self, date):
         if len(date.split(" ")) == 3:
-            day, month, year = date.split(" ")
+            year, month, day = date.split(" ")
             return int(month)
         else:
-            month, year = date.split(" ")
+            year, month = date.split(" ")
             return int(month)
 
     def _parse_tag(self, f):
