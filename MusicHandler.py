@@ -23,4 +23,5 @@ class MusicHandler:
         self._lib_handler = LibraryHandler.LibraryHandler(self.BASE_PATH)
 
     def play_music(self, year, month):
-        self._lib_handler.get_music_from_year_month(year, month)
+        track = self._lib_handler.get_music_from_year_month(year, month)
+        self._play_music(track['file'])

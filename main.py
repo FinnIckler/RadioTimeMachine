@@ -7,5 +7,7 @@ parser.add_argument('path', metavar="path", type=str, nargs=1,
 
 if __name__ == '__main__':
     args = parser.parse_args()
-    music = MusicHandler.MusicHandler(args.path)
+    music = MusicHandler.MusicHandler(args.path[0])
     music.play_music(2017, 1)
+    while(True):
+        print("playing music")
