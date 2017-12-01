@@ -10,4 +10,4 @@ if __name__ == '__main__':
     music = MusicHandler.MusicHandler(args.path[0])
     music.play_music(2017, 1)
     while(True):
-        print("playing music")
+        pass

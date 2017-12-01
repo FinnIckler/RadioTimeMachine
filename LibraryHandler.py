@@ -44,7 +44,7 @@ class LibraryHandler:
            The Year is Saved in the TDRC Block
            The Genre ID3 Tag is Saved in the TCON Block
            or False if the file does not include the tags"""
-        if {"TIT3","TPE1","TDRC", "TCON", "TALB"}.issubset(set(tags.keys())):
+        if {"TIT3","TPE1","TDRC", "TALB"}.issubset(set(tags.keys())):
             year = tags['TDRC'].text[0]
             if (type(year) != str):
                 year = year.text
@@ -53,7 +53,6 @@ class LibraryHandler:
                 'date': tags['TIT3'].text[0],
                 'artist': tags['TPE1'].text[0],
                 'album': tags['TALB'].text[0],
-                'genre': tags['TCON'].text[0],
                 'year': int(year),
                 'month': self._get_month(tags['TIT3'].text[0])
             }
