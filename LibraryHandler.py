@@ -19,8 +19,11 @@ class LibraryHandler:
 
     def get_music_from_year_month(self, year, month):
         month_library = self._library[year - self.FIRSTYEAR - 1][month - 1]
-        track_no = random.choice(list(month_library.keys()))
-        return month_library[track_no]
+        if month_library:
+            track_no = random.choice(list(month_library.keys()))
+            return month_library[track_no]
+        else:
+            return None
 
     def _build_library(self):
         for f in iglob(self.base_path + "/**/*", recursive=True):
@@ -31,7 +34,7 @@ class LibraryHandler:
                 year_index = result['year'] - self.FIRSTYEAR - 1
                 month_index = result['month'] - 1
                 self._library[year_index][month_index][result['file']] = result
-                print("added",result['file'])
+                print("added", result['file'])
 
     def _data_entry(self, tags, filename):
         """
@@ -44,9 +47,9 @@ class LibraryHandler:
            The Year is Saved in the TDRC Block
            The Genre ID3 Tag is Saved in the TCON Block
            or False if the file does not include the tags"""
-        if {"TIT3","TPE1","TDRC", "TALB"}.issubset(set(tags.keys())):
+        if {"TIT3", "TPE1", "TDRC", "TALB"}.issubset(set(tags.keys())):
             year = tags['TDRC'].text[0]
-            if (type(year) != str):
+            if type(year) != str:
                 year = year.text
             return {
                 "file": filename,
@@ -76,7 +79,7 @@ class LibraryHandler:
             except mutagen.mp3.HeaderNotFoundError:
                 print("Failed for: ", f)
                 return False
-            if(not tags is None):
+            if tags is not None:
                 return self._data_entry(tags, f)
             else:
                 return False

@@ -24,4 +24,8 @@ class MusicHandler:
 
     def play_music(self, year, month):
         track = self._lib_handler.get_music_from_year_month(year, month)
-        self._play_music(track['file'])
+        if track is not None:
+            self._play_music(track['file'])
+            return track['file']
+        else:
+            return None
