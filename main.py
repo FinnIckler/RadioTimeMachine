@@ -11,6 +11,8 @@ parser.add_argument('path', metavar="path", type=str, nargs=1,
 
 
 def convert_angle_to_year(angle):
+    """As the dial Angle goes from -90 to 270 for some reason, some conversion
+    needs to be done to get the range from 1920 to 2017"""
     angle *= -1
     angle += 180
     angle = angle / 1
@@ -23,17 +25,20 @@ def convert_angle_to_year(angle):
 
 
 def convert_angle_to_month(angle):
+    """As the dial Angle goes from -90 to 270 for some reason, some conversion
+        needs to be done to get the range from 1 to 12"""
     angle *= -1
     angle += 180
     angle = angle / 30
     if angle - 3 < 0:
-        angle += 9
+        angle += 8
     else:
         angle -= 3
     return round(angle)
 
 
 def on_dial_change_year(angle):
+    """Changes the music when the year dial is turned"""
     year = convert_angle_to_year(angle)
     month = convert_angle_to_month(month_dial.angle)
     result = music.play_music(year, month)
@@ -44,6 +49,7 @@ def on_dial_change_year(angle):
 
 
 def on_dial_change_month(angle):
+    """Changes the music when the month dial is turned"""
     month = convert_angle_to_month(angle)
     year = convert_angle_to_year(year_dial.angle)
     result = music.play_music(year, month)
@@ -51,6 +57,8 @@ def on_dial_change_month(angle):
         print("Changed Music to", result)
     else:
         print("No music for ", year, month)
+
+
 
 
 month_dial = None
@@ -61,7 +69,6 @@ if __name__ == '__main__':
     master = Tk()
     master.title("Radio Time Machine")
 
-    # Add a grid
     mainframe = Frame(master)
     mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
     mainframe.columnconfigure(0, weight=1)

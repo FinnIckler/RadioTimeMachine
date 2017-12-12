@@ -21,7 +21,7 @@ class Dial:
         self.center_xy = (rpb, rpb)
         self.drag_from_angle = None
 
-        s = int(2 * (self.radius + self.bump_size))
+        # Width and height is determined by the size of the screen you are using in you artefact
         c = tkinter.Canvas(parent, width=150, height=150)
         c.bind('<ButtonPress-1>', self.button_press_cb)
         c.bind('<Button1-Motion>', self.pointer_drag_cb)
@@ -33,7 +33,7 @@ class Dial:
             kw['fill'] = fill
         if outline is not None:
             kw['outline'] = outline
-        c.create_oval(cx - r , cy - r, cx + r , cy + r, **kw)
+        c.create_oval(cx - r, cy - r, cx + r, cy + r, **kw)
         bs = self.bump_size
         kw = {'width': bs}
         if line is not None:
@@ -46,7 +46,7 @@ class Dial:
         self.zeroAxis = zero_axis
         self.angle = init_angle
         self.setAngle(init_angle, do_callback=0)
-
+        # Renders the text, replace the Font with one you have if you don't have Fjord One
         if disp_type == 'month':
             c.create_text(75, 14, text="Dec", tag="Big")
             c.create_text(105, 22, text="Jan", tag="Small")
@@ -175,6 +175,7 @@ class Dial:
             self.command(a)
 
     setAngle = set_angle
+
 
 # -----------------------------------------------------------------------------
 #
